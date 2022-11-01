@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {HomeNavigator} from './ScreenNavigators';
+import {HomeNavigator, OrderNavigator} from './ScreenNavigators';
+import Cart from '../screens/Order/Cart';
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -9,7 +10,8 @@ const TabNavigator = () => {
     <Tab.Navigator
       initialRouteName="HomeStack"
       screenOptions={{
-        headerShown: false,
+        //headerShown: false,
+        headerTitleAlign: 'center',
         tabBarStyle: {
           backgroundColor: '#0891b2',
           height: 60,
@@ -28,11 +30,12 @@ const TabNavigator = () => {
               size={26}
             />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={HomeNavigator}
+        name="OrdersTab"
+        component={OrderNavigator}
         options={{
           tabBarIcon: val => (
             <Icons
@@ -42,9 +45,10 @@ const TabNavigator = () => {
               size={28}
             />
           ),
+          title: 'Orders',
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Test1"
         component={HomeNavigator}
         options={{
@@ -57,7 +61,7 @@ const TabNavigator = () => {
             />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

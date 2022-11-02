@@ -34,7 +34,10 @@ const LoginScreen = ({navigation, route}) => {
           duration: 2000,
           placement: 'top',
         });
-        navigation.reset({index: 0, routes: [{name: 'Supplier'}]});
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Supplier'}],
+        });
       } else {
         toast.show({
           render: () => {

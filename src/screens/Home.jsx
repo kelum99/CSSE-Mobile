@@ -6,7 +6,11 @@ const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{backgroundColor: '#fff', height: '100%'}}>
       <Center my={10}>
-        <Button my={5} onPress={() => navigation.navigate('CreateOder')}>
+        <Button
+          my={5}
+          onPress={() =>
+            navigation.navigate('OrdersTab', {screen: 'CreateOder'})
+          }>
           Create Order
         </Button>
         <Button

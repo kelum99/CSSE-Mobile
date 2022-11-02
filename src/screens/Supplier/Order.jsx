@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {Button, Box, VStack, HStack, Text, Center} from 'native-base';
-
+import moment from 'moment';
 export const HStackText = props => {
   return (
     <HStack my={3} justifyContent={'space-between'}>
@@ -15,19 +15,28 @@ export const HStackText = props => {
   );
 };
 
-const SupplierOrder = () => {
-  //const [choose, setChoose] = useState('pending');
+const SupplierOrder = ({route}) => {
+  const {order} = route.params;
+  useEffect(() => {
+    console.log('xx', order);
+  }, [order]);
   return (
     <SafeAreaView style={Styles.MainContainer}>
-      <Box px={8} py={4} mx={4} my={2} style={Styles.card}>
-        <VStack>
-          <HStackText title="Material" value="Sand" />
-          <HStackText title="Quantity" value="20" />
-          <HStackText title="Amount" value="25000 LKR" />
-          <HStackText title="Deadline" value="2022-11-10" />
-          <HStackText title="Status" value="pending" />
-        </VStack>
-      </Box>
+      {order && (
+        <Box px={8} py={4} mx={4} my={2} style={Styles.card}>
+          <VStack>
+            <HStackText title="Material" value={order.material} />
+            <HStackText title="Quantity" value={order.quantity} />
+            <HStackText title="Amount" value={order.budget} />
+            <HStackText
+              title="Deadline"
+              value={moment(order.deliveryDate).format('YYYY-MM-DD')}
+            />
+            <HStackText title="Status" value={order.material} />
+          </VStack>
+        </Box>
+      )}
+
       <Box mx={5} my={3}>
         <HStack justifyContent={'space-around'}>
           <Button backgroundColor={'green.500'}>Send Order</Button>

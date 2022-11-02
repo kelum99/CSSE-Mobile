@@ -18,7 +18,7 @@ export const HStackText = props => {
 };
 
 const Cart = ({navigation}) => {
-  const [choose, setChoose] = useState('Pending');
+  const [choose, setChoose] = useState('History');
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {
     try {
@@ -64,10 +64,7 @@ const Cart = ({navigation}) => {
                 <Pressable
                   key={order._id}
                   onPress={() =>
-                    navigation.navigate('HomeStack', {
-                      screen: 'OrderScreen',
-                      params: {order},
-                    })
+                    navigation.navigate({name: 'OrderScreen', params: {order}})
                   }>
                   <Box px={8} py={4} mx={4} my={2} style={Styles.card}>
                     <VStack>

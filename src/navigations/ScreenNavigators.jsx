@@ -15,7 +15,7 @@ export const HomeNavigator = () => {
         component={HomeScreen}
         options={{headerTitleAlign: 'center'}}
       />
-      <HomeStack.Screen
+      {/* <HomeStack.Screen
         name="CreateOder"
         component={CreateOrderScreen}
         options={{
@@ -23,14 +23,14 @@ export const HomeNavigator = () => {
           headerShadowVisible: false,
         }}
       />
-      {/* <HomeStack.Screen
+      <HomeStack.Screen
         name="CartScreen"
         component={Cart}
         options={{
           headerTitle: 'Orders',
           headerShadowVisible: false,
         }}
-      /> */}
+      />
       <HomeStack.Screen
         name="OrderScreen"
         component={Order}
@@ -38,7 +38,7 @@ export const HomeNavigator = () => {
           headerTitle: 'Order',
           headerShadowVisible: false,
         }}
-      />
+      /> */}
     </HomeStack.Navigator>
   );
 };
@@ -47,7 +47,23 @@ const OrderStack = createNativeStackNavigator();
 
 export const OrderNavigator = () => {
   return (
-    <OrderStack.Navigator>
+    <OrderStack.Navigator initialRouteName="CartScreen">
+      <OrderStack.Screen
+        name="OrderScreen"
+        component={Order}
+        options={{
+          headerTitle: 'Order',
+          headerShadowVisible: false,
+        }}
+      />
+      <OrderStack.Screen
+        name="CreateOder"
+        component={CreateOrderScreen}
+        options={{
+          headerTitle: 'Create Order',
+          headerShadowVisible: false,
+        }}
+      />
       <OrderStack.Screen
         name="CartScreen"
         component={Cart}

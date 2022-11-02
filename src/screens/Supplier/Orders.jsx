@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, SafeAreaView, StyleSheet} from 'react-native';
-import {Button, Box, VStack, HStack, Text, Center} from 'native-base';
+import {Button, Box, VStack, HStack, Text, Center, Heading} from 'native-base';
 import axios from 'axios';
+import moment from 'moment/moment';
 
 export const HStackText = props => {
   return (
@@ -20,20 +21,18 @@ const SupplierOrders = ({navigation}) => {
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {
     try {
-      const res = await axios.get('http://localhost:4002/api/order/', {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      console.log(res);
+      const res = await axios.get('http://10.0.2.2:4002/api/order/');
       if (res.status === 200) {
-        console.log('order', res.data);
+        setOrders(res.data);
+        console.log('sss', res.data);
       }
     } catch (error) {
       console.log('error', error);
     }
   };
+  useEffect(() => {
+    getOrders();
+  }, []);
 
   return (
     <SafeAreaView style={Styles.MainContainer}>
@@ -47,17 +46,40 @@ const SupplierOrders = ({navigation}) => {
           Log Out
         </Button>
       </Box>
-      <Pressable onPress={() => navigation.navigate('SupplierOrder')}>
-        <Box px={8} py={4} mx={4} my={2} style={Styles.card}>
-          <VStack>
-            <HStackText title="Material" value="Sand" />
-            <HStackText title="Quantity" value="20" />
-            <HStackText title="Amount" value="25000 LKR" />
-            <HStackText title="Deadline" value="2022-11-10" />
-            <HStackText title="Status" value="pending" />
-          </VStack>
-        </Box>
-      </Pressable>
+      <Heading textAlign="center">Saman Constructions</Heading>
+      {orders && (
+        <>
+          {orders
+            .filter(
+              val =>
+                val.status === 'Approved' &&
+                val.supplier === 'Saman Constructions',
+            )
+            .map(order => (
+              <Pressable
+                key={order._id}
+                onPress={() =>
+                  navigation.navigate({
+                    name: 'SupplierOrder',
+                    params: {order},
+                  })
+                }>
+                <Box px={8} py={4} mx={4} my={2} style={Styles.card}>
+                  <VStack>
+                    <HStackText title="Material" value={order.material} />
+                    <HStackText title="Quantity" value={order.quantity} />
+                    <HStackText title="Amount" value={order.budget} />
+                    <HStackText
+                      title="Delivery Date"
+                      value={moment(order.deliveryDate).format('YYYY-MM-DD')}
+                    />
+                    <HStackText title="Location" value={order.deliverySite} />
+                  </VStack>
+                </Box>
+              </Pressable>
+            ))}
+        </>
+      )}
     </SafeAreaView>
   );
 };

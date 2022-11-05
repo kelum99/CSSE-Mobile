@@ -42,7 +42,7 @@ const Cart = ({navigation}) => {
           <Button
             variant={choose === 'Pending' ? 'solid' : 'outline'}
             onPress={() => setChoose('Pending')}>
-            Pennding Order
+            Pending Order
           </Button>
           <Button
             variant={choose === 'History' ? 'solid' : 'outline'}
